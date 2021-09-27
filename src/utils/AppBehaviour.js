@@ -1,0 +1,11 @@
+
+
+export const getTokens = () => {
+  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MzI1NTkxMjIsImV4cCI6MTYzMjg1OTEyMiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiY2Z2ZWxlejlAZ21haWwuY29tIn0.fxjezVVFDpVKto-4-CvRbPKNF49WNTqLpz8o7LV0YYbAnCTdBcbW41QcdtjaDQ6oxg3oPIuo55uFTgbuQvsa7SeOpUFdH_5Mo0II6kKL3dvonuHf_vS2j_meckNlNvni_M7LOF1jbdgN1kjPzLZq7kKShH24fx1CXDJSef_wiBu70mHGRxnogTM5NB0XCdLDeTrRG3k12XeUf5WKUHZFhF1F99FLatHQGwWM75o385oRoNNbNYX_bfFayZqb2J_PkP6vcCHAXDR5bOAxNkq-RtQl7q0B18vA_e0oeEjTWGmhvyy_MEM2vieudatfUnr9ryhV5h8HntzHU7AHH0BEyQ';
+  const refresh_token = 'OK';
+  return {token,refresh_token};
+}
+
+
+
+
