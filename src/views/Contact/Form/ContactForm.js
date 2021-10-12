@@ -16,17 +16,19 @@ const ContactForm = ({navigation}) => {
   const queryClient = useQueryClient()
 
   const invalidateCacheQuery = () => {
-    setName('');
-    setLastName('');
-    console.log('executed');
-    queryClient.invalidateQueries('todos');
-
+    queryClient.invalidateQueries(GET_ALL_CONTACTS);
+    navigation.navigate("ContactList");
   }
 
-  const {mutate,isLoading} = useMutation(create, {onSuccess:invalidateCacheQuery});
+  const resetForm = () =>{
+    setName('');
+    setLastName('');
+  }
 
+  const {mutate,isLoading} = useMutation(create, {onSuccess:invalidateCacheQuery, onSettled:resetForm});
 
   const handleSubmit = async() =>{
+
     let contact = new Contact(null, name, lastName);
     if (contact.validate()){
       await mutate(contact)
@@ -39,9 +41,9 @@ const ContactForm = ({navigation}) => {
     <SafeAreaView>
     <View style={styles.form}>
       <Text style={styles.label}>Nombre</Text>
-      <TextInput onChangeText={(text)=> setName(text)} style={styles.textInput}></TextInput>
+      <TextInput onChangeText={(text)=> setName(text)} style={styles.textInput} value={name}></TextInput>
       <Text style={styles.label}>Apellido</Text>
-      <TextInput onChangeText={(text) => setLastName(text)} style={styles.textInput}></TextInput>
+      <TextInput onChangeText={(text) => setLastName(text)} style={styles.textInput} value={lastName}></TextInput>
       <Button onPress={handleSubmit} title='Nuevo Contacto'></Button>
       {isLoading && <Text>Cargando...</Text>}
     </View>
