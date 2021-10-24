@@ -1,9 +1,10 @@
-
+import store from '../app/redux/store';
 
 export const getTokens = () => {
-  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MzMxNzE0NDksImV4cCI6MTYzMzQ3MTQ0OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiY2Z2ZWxlejlAZ21haWwuY29tIn0.KgNXa9n_-C1Z5sh232WyaQaPEIYEpO2jALvrVqHj7O7_0j4GtymeGVKe9_gU_Sh6ZYnEwlH3V_t2VGM17VSfAAOMM-6Y3KQeVvT6AhRykNPbIfy2MDyXfoXfBCHw8IlCPl0HHVG_tv_DBmaDVtXafFlWrxwyq98mZsWazMbyCGCgXbfoW-mmGVU2yio7I85LP9pc4tC_Ew8HjksDMwgBK8jviaxdfwagbs-Ay07TBKbCUz3Pw8yWcF_zn1NLIDjgTK2rmuLTkPCRQh_-MZN8p_WMlwNYqnB6J4Z53LSzy6t88pq-HBw1x3pt5AIM2yQkO4xJ9nuJhUG7gPQUQoX34g';
-  const refresh_token = 'OK';
-  return {token,refresh_token};
+  const {token} = store.getState();
+  const jwt_token = token?.token ?? null;
+  const refresh_token = token?.refresh_token ?? null;
+  return {token:jwt_token,refresh_token};
 }
 
 

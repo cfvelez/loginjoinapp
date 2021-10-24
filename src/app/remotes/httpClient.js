@@ -2,7 +2,6 @@ import {SERVER} from '../../constants';
 import {getTokens} from '../../utils/AppBehaviour';
 import axios from 'axios';
 
-
 export default class httpClient {
   constructor () {
     this.axios = axios.create({

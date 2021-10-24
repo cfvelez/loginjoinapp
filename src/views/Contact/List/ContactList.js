@@ -5,9 +5,13 @@ import {all} from '../../../app/remotes/Contact';
 import {GET_ALL_CONTACTS} from '../../../app/remotes/remotes';
 import {useQuery} from 'react-query';
 
+import {useDispatch} from 'react-redux';
+import {set_token} from '../../../app/redux/actions/token/index'
+
 
 const ContactList = ({navigation}) => {
-  const handleOnPress = () => {navigation.navigate('Login'); alert('hola');};
+  const dispatch = useDispatch();
+  const handleOnPress = () => {dispatch(set_token(null))};
   const query = useQuery(GET_ALL_CONTACTS, all);
 
   let content = null;
