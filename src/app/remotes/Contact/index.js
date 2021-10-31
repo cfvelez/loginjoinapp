@@ -33,10 +33,10 @@ export const update = (contact)=> {
     } );
 }
 
-export const get = (id)=> {
+export const get = (contactId)=> {
   var http = new httpClient();
   http.setToken();
-  return http.axios.get(`/contact/${id}`)
+  return http.axios.get(`/contact/${contactId}`)
     .then((response) => {
       return response.data
     })

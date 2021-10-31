@@ -1,9 +1,8 @@
 import React,{useState}  from "react";
-import { Text, View, StyleSheet,SafeAreaView,TextInput,Button } from "react-native";
+import { Text, View, StyleSheet,SafeAreaView,TextInput,Button,Alert } from "react-native";
 import LoginStyle from './LoginStyle.js';
 import {authUser} from '../../app/remotes/Auth';
 import {useMutation} from 'react-query';
-import {useSelector} from 'react-redux';
 
 const styles = StyleSheet.create(LoginStyle);
 
@@ -20,13 +19,12 @@ const Login = ({ navigation }) =>  {
 
 
   const completeLogin = (data) => {
-    console.log('data success');
-    if(data == true){
-      console.log('Login success');
-      //navigation.navigate('ContactList');
-    }
-    else{
-     alert('Login failed');
+
+    if(data == false){
+      Alert.alert(
+        "Login incorrecto",
+        "Usuario o clave incorrectos",
+      );
     }
 
   }

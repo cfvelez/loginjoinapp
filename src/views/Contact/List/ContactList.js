@@ -4,14 +4,11 @@ import ContactItem from '../Item/ContactItem';
 import {all} from '../../../app/remotes/Contact';
 import {GET_ALL_CONTACTS} from '../../../app/remotes/remotes';
 import {useQuery} from 'react-query';
-
-import {useDispatch} from 'react-redux';
-import {set_token} from '../../../app/redux/actions/token/index'
+import {contactRoute} from '../../../app/routes/index'
 
 
 const ContactList = ({navigation}) => {
-  const dispatch = useDispatch();
-  const handleOnPress = () => {dispatch(set_token(null))};
+  const handleOnPress = (contactId) => { console.log('contactId:',contactId); navigation.navigate(contactRoute.info, {contactId}); }
   const query = useQuery(GET_ALL_CONTACTS, all);
 
   let content = null;
@@ -19,7 +16,7 @@ const ContactList = ({navigation}) => {
   if(!query.isLoading){
     content = <FlatList
               data={query.data}
-              renderItem={({item})=> <ContactItem contact={item} onPress={handleOnPress}/>}
+              renderItem={({item})=> <ContactItem contact={item} onPress={()=>handleOnPress(item.id)}/>}
               keyExtractor={item => item.id}
               />;
   }
