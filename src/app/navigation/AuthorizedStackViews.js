@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ContactList from '../../views/Contact/List/ContactList';
 import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import {contactRoute} from '../routes/index';
-import ContactForm from '../../views/Contact/Form/ContactForm';
+import ContactAdd from '../../views/Contact/Form/ContactAdd';
+import ContactEdit from '../../views/Contact/Form/ContactEdit';
 
 const ContactStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -14,13 +15,14 @@ const ContactStackViews = () =>{
         <ContactStack.Navigator>
           <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ title: 'Contactos'}} />
           <ContactStack.Screen name={contactRoute.info} component={ContactInfo} options={{ title: 'Información'}} />
+          <ContactStack.Screen name={contactRoute.edit} component={ContactEdit} options={{ title: 'Editar'}} />
         </ContactStack.Navigator>);
 }
 
 const AuthorizedStackViews = () =>
   <Tab.Navigator>
     <Tab.Screen name="ContactTab" component={ContactStackViews} options={{ title: 'Mis Contactos'}} />
-    <Tab.Screen name="AddContactTab" component={ContactForm} options={{ title: 'Nuevo Contacto'}} />
+    <Tab.Screen name={contactRoute.add} component={ContactAdd} options={{ title: 'Nuevo Contacto'}} />
   </Tab.Navigator>
 
 export default AuthorizedStackViews;

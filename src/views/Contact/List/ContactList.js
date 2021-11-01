@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList,Text, View} from 'react-native';
 import ContactItem from '../Item/ContactItem';
 import {all} from '../../../app/remotes/Contact';
-import {GET_ALL_CONTACTS} from '../../../app/remotes/remotes';
+import {GET_ALL_CONTACTS} from '../../../app/remotes/api';
 import {useQuery} from 'react-query';
 import {contactRoute} from '../../../app/routes/index'
 
