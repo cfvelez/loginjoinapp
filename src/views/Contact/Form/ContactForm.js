@@ -7,6 +7,7 @@ import {GET_ALL_CONTACTS} from '../../../app/remotes/api';
 import Contact from '../../../app/domains/Contact';
 import {useMutation} from 'react-query';
 import { contactRoute } from '../../../app/routes';
+import { QueryClient } from 'react-query'
 
 const styles = StyleSheet.create(ContactFormStyle);
 
@@ -14,8 +15,9 @@ const ContactForm = ({navigation, route, isEditing, contact}) => {
   const [name, setName] = useState(contact?.name ?? '');
   const [lastName, setLastName] = useState(contact?.lastname ?? '');
   const contactId = contact?.id ?? null;
+  const queryClient = new QueryClient();
 
-  const invalidateCacheQuery = () => {
+  const invalidateCacheQuery = async () => {
     queryClient.invalidateQueries(GET_ALL_CONTACTS);
     navigation.navigate(contactRoute.list);
   }
@@ -26,7 +28,7 @@ const ContactForm = ({navigation, route, isEditing, contact}) => {
   }
 
   const operation = isEditing ? update : create;
-  const {mutate,isLoading} = useMutation(operation, {onSuccess:invalidateCacheQuery, onSettled:resetForm});
+  let {mutate,isLoading} = useMutation(operation, {onSuccess:invalidateCacheQuery, onSettled:resetForm});
 
   const handleSubmit = async() =>{
     let contact = new Contact(contactId, name, lastName);

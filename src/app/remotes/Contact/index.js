@@ -45,10 +45,10 @@ export const get = (contactId)=> {
     } );
 }
 
-export const remove = (id)=> {
+export const remove = (contact)=> {
   var http = new httpClient();
   http.setToken();
-  return http.axios.delete(`/contact/${id}`)
+  return http.axios.delete(`/contact/${contact.id}`)
   .then(() => true)
   .catch((e) =>{
     return false;

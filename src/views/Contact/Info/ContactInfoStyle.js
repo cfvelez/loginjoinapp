@@ -18,6 +18,9 @@ const ContactInfoStyle = {
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  btn:{
+    marginTop:10
+  }
 
 };
 
