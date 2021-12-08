@@ -1,32 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList,Text, View} from 'react-native';
 import ContactItem from '../Item/ContactItem';
 import {contactRoute} from '../../../app/routes/index'
 import useContactList from '../../../app/hooks/contacts/useContactList';
+import {connect} from 'react-redux';
 
-
-const ContactList = ({navigation}) => {
+const ContactList = ({navigation,lastUpdate}) => {
   const handleOnPress = (contactId) => {navigation.navigate(contactRoute.info, {contactId}); }
-  const {data:contacts, isLoading } = useContactList();
-
-  let content = null;
+  const {data:contacts, isLoading } = useContactList(lastUpdate);
+  let screen = null;
 
   if(!isLoading){
-    content = <FlatList
+    screen = <FlatList
                 data={contacts}
                 renderItem={({item})=> <ContactItem contact={item} onPress={()=>handleOnPress(item.id)}/>}
                 keyExtractor={item => item.id}
               />;
   }
   else{
-    content = <Text>Cargando..</Text>;
+    screen = <Text>Cargando..</Text>;
   }
 
    return (
-      <View>
-        {content}
-      </View>);
-
+    <React.Fragment>
+      <View key={lastUpdate}>
+        {screen}
+      </View>
+    </React.Fragment>);
 };
 
-  export default ContactList;
+const mapStateToProps = state => ({
+  lastUpdate: state.contact_list_update
+});
+
+export default connect(mapStateToProps)(ContactList);

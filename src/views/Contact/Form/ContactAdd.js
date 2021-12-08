@@ -4,9 +4,7 @@ import ContactForm from './ContactForm';
 
 const ContactAdd = ({navigation, route}) => {
   return (
-    <SafeAreaView>
-       <ContactForm contact={null} isEditing={false} navigation={navigation} route={route} />
-    </SafeAreaView>
+      <ContactForm contact={null} isEditing={false} navigation={navigation} route={route} />
   );
 }
 

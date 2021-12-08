@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, SafeAreaView, Text, View,StyleSheet} from 'react-native';
+import {Button, Text, View,StyleSheet} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import ContactFormStyle from './ContactFormStyle';
 import {create,update} from '../../../app/remotes/Contact';
@@ -7,19 +7,21 @@ import {GET_ALL_CONTACTS} from '../../../app/remotes/api';
 import Contact from '../../../app/domains/Contact';
 import {useMutation} from 'react-query';
 import { contactRoute } from '../../../app/routes';
-import { QueryClient } from 'react-query'
+import { QueryClient } from 'react-query';
+import { useDispatch } from "react-redux";
+import {contact_list_update} from '../../../app/redux/actions/list';
 
-const styles = StyleSheet.create(ContactFormStyle);
-
-const ContactForm = ({navigation, route, isEditing, contact}) => {
+const ContactForm = ({navigation, isEditing, contact}) => {
   const [name, setName] = useState(contact?.name ?? '');
   const [lastName, setLastName] = useState(contact?.lastname ?? '');
   const contactId = contact?.id ?? null;
   const queryClient = new QueryClient();
+  const dispatch = useDispatch();
+  const styles = StyleSheet.create(ContactFormStyle);
 
   const invalidateCacheQuery = async () => {
     queryClient.invalidateQueries(GET_ALL_CONTACTS);
-    navigation.navigate(contactRoute.list);
+    dispatch(contact_list_update(Date.now()));
   }
 
   const resetForm = () =>{
@@ -33,14 +35,14 @@ const ContactForm = ({navigation, route, isEditing, contact}) => {
   const handleSubmit = async() =>{
     let contact = new Contact(contactId, name, lastName);
     if (contact.validate()){
-      await mutate(contact)
+      await mutate(contact,{onSuccess:navigation.navigate(contactRoute.list)})
     }
     else
       alert('Complete los datos del formulario')
   }
 
   return (
-    <SafeAreaView>
+    <React.Fragment>
     <View style={styles.form}>
       <Text style={styles.label}>Nombre</Text>
       <TextInput onChangeText={(text)=> setName(text)} style={styles.textInput} value={name}></TextInput>
@@ -49,7 +51,7 @@ const ContactForm = ({navigation, route, isEditing, contact}) => {
       <Button onPress={handleSubmit} disabled={isLoading} title={ isEditing ? 'Actualizar' : 'Crear'  }></Button>
       {isLoading && <Text>Cargando...</Text>}
     </View>
-    </SafeAreaView>
+    </React.Fragment>
   );
 }
 

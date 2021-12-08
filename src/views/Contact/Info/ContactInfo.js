@@ -8,6 +8,9 @@ import {remove} from '../../../app/remotes/Contact';
 import { contactRoute } from '../../../app/routes';
 import { QueryClient } from 'react-query'
 import {useMutation} from 'react-query';
+import { useDispatch } from "react-redux";
+import {contact_list_update} from '../../../app/redux/actions/list';
+
 
 const styles = StyleSheet.create(ContactInfoStyle);
 
@@ -15,12 +18,12 @@ const ContactInfo = ({navigation, route}) => {
   const {contactId} = route.params;
   const {data: contact ,isLoading, isSuccess} =  useContact(contactId);
   let content = null;
-
+  const dispatch = useDispatch();
   const queryClient = new QueryClient();
 
   const invalidateCacheQuery = () => {
     queryClient.invalidateQueries(GET_ALL_CONTACTS);
-    navigation.navigate(contactRoute.list);
+    dispatch(contact_list_update(Date.now()));
   }
 
   let {mutate,isLoading: isProcessing} = useMutation(remove, {onSuccess:invalidateCacheQuery});
@@ -44,7 +47,7 @@ const ContactInfo = ({navigation, route}) => {
   });
 
   const removeContactAction = async () =>{
-    return await mutate(contact);
+    return await mutate(contact,{onSuccess:navigation.navigate(contactRoute.list)});
   }
 
   const handleDelete = async() =>{

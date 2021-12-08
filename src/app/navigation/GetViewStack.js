@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 
 const GetViewStack = (props) =>{
   const isAuthorized = useAuth();
-  console.log('isAuthorized:',isAuthorized);
   if(isAuthorized === true)
     return <AuthorizedStackViews></AuthorizedStackViews>;
 
