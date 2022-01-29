@@ -13,6 +13,7 @@ const ContactItemStyle = {
   },
   icon : {
     marginLeft: 'auto',
+    paddingRight:10,
   },
 
 };

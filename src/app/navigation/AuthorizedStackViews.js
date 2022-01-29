@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const ContactStackViews = () =>{
   return(
         <ContactStack.Navigator>
-          <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ title: 'Contactos'}} />
+          <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ headerShown: false}} />
           <ContactStack.Screen name={contactRoute.info} component={ContactInfo} options={{ title: 'Información'}} />
           <ContactStack.Screen name={contactRoute.edit} component={ContactEdit} options={{ title: 'Editar'}} />
         </ContactStack.Navigator>);
