@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {FlatList,Text, View, StyleSheet, Button} from 'react-native';
+import {FlatList,Text, View, StyleSheet} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import ContactItem from '../Item/ContactItem';
 import {contactRoute} from '../../../app/routes/index'
 import useContactList from '../../../app/hooks/contacts/useContactList';
+import useContactSearch from '../../../app/hooks/contacts/useContactSearch';
 import ContactFormStyle from '../Form/ContactFormStyle';
 import Icon from 'react-native-ionicons';
 
@@ -13,13 +14,17 @@ const ContactList = ({navigation,lastUpdate}) => {
   const [text, setText] = useState('');
   const handleOnPress = (contactId) => {navigation.navigate(contactRoute.info, {contactId}); }
   const {data:contacts, isLoading } = useContactList(lastUpdate);
+  const {data:contactsFilter, isLoadingFilter } = useContactSearch(text);
   let screen = null;
+
 
   const styles = StyleSheet.create(ContactFormStyle);
 
-  if(!isLoading){
+  if(!isLoading || !isLoadingFilter){
+
+    let list = contactsFilter && contactsFilter.length > 0 ? contactsFilter : contacts;
     screen = <FlatList
-                data={contacts}
+                data={list}
                 renderItem={({item})=> <ContactItem contact={item} onPress={()=>handleOnPress(item.id)}/>}
                 keyExtractor={item => item.id}
               />;

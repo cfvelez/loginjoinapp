@@ -54,3 +54,13 @@ export const remove = (contact)=> {
     return false;
   } );
 }
+
+export const search = (term) =>{
+  var http = new httpClient();
+  http.setToken();
+  return http.axios.get(`/contact/search/${term}`)
+  .then((response) => response.data)
+  .catch((e) =>{
+          return [];
+  } );
+}
