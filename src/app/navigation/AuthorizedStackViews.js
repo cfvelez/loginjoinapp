@@ -6,23 +6,32 @@ import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import {contactRoute} from '../routes/index';
 import ContactAdd from '../../views/Contact/Form/ContactAdd';
 import ContactEdit from '../../views/Contact/Form/ContactEdit';
+import { Button } from 'react-native';
 
 const ContactStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const ContactStackViews = () =>{
+const Test = () =>{
+   return (<></>);
+}
+
+export const ContactStackViews = () =>{
+
   return(
         <ContactStack.Navigator>
-          <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ headerShown: false}} />
+          <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ title: 'Contactos'}}/>
           <ContactStack.Screen name={contactRoute.info} component={ContactInfo} options={{ title: 'Información'}} />
           <ContactStack.Screen name={contactRoute.edit} component={ContactEdit} options={{ title: 'Editar'}} />
+          <ContactStack.Screen name={contactRoute.add} component={ContactAdd} options={{ title: 'Nuevo'}} />
         </ContactStack.Navigator>);
 }
 
-const AuthorizedStackViews = () =>
-  <Tab.Navigator>
-    <Tab.Screen name="ContactTab" component={ContactStackViews} options={{ title: 'Mis Contactos'}} />
-    <Tab.Screen name={contactRoute.add} component={ContactAdd} options={{ title: 'Nuevo Contacto'}} />
-  </Tab.Navigator>
+export const AuthorizedStackViews = () =>{
+  return(
+      <Tab.Navigator>
+        <Tab.Screen name="ContactTab" component={ContactInfo} options={{ title: 'Mis Contactos'}} />
+        <Tab.Screen name="HistoryTab" component={Test} options={{ title: 'Historial'}} />
+      </Tab.Navigator>);
+};
 
-export default AuthorizedStackViews;
+
