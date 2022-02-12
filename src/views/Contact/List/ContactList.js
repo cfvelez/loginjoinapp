@@ -31,9 +31,7 @@ const ContactList = ({navigation,lastUpdate}) => {
     }
   });
 
-
   const styles = StyleSheet.create(ContactFormStyle);
-
   if(!isLoading || !isLoadingFilter){
 
     let list = contactsFilter && contactsFilter.length > 0 ? contactsFilter : contacts;
@@ -57,7 +55,8 @@ const ContactList = ({navigation,lastUpdate}) => {
       <View key={lastUpdate}>
         {screen}
       </View>
-    </React.Fragment>);
+    </React.Fragment>
+    );
 };
 
 const mapStateToProps = state => ({

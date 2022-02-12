@@ -4,10 +4,10 @@ import useContact from '../../../app/hooks/contacts/useContact';
 import {GET_ALL_CONTACTS} from '../../../app/remotes/api';
 import ContactInfoStyle from './ContactInfoStyle';
 import MyConfirmDialog from '../../../components/MyConfirmDialog/MyConfirmDialog.js';
-import {remove} from '../../../app/remotes/Contact';
-import { contactRoute } from '../../../app/routes';
+import { remove } from '../../../app/remotes/Contact';
+import { contactRoute, storyRoute } from '../../../app/routes';
 import { QueryClient } from 'react-query'
-import {useMutation} from 'react-query';
+import { useMutation } from 'react-query';
 import { useDispatch } from "react-redux";
 import {contact_list_update} from '../../../app/redux/actions/list';
 
@@ -34,20 +34,27 @@ const ContactInfo = ({navigation, route}) => {
         headerRight: () => (
           <Button
             onPress={() =>
-              navigation.navigate(contactRoute.edit, {
-                contactId: contact.id,
+              navigation.navigate(storyRoute.list, {
+                screen: storyRoute.list,
+                params:{contactId: contact.id},
               })
             }
-            title="Editar"
+            title="Historial"
           />
         ),
-        title: contact.name + contact.lastname,
+        title: contact.name + ' ' +contact.lastname,
       });
     }
   });
 
   const removeContactAction = async () =>{
     return await mutate(contact,{onSuccess:navigation.navigate(contactRoute.list)});
+  }
+
+  const handleEdit = () => {
+      navigation.navigate(contactRoute.edit, {
+      contactId: contact.id,
+    })
   }
 
   const handleDelete = async() =>{
@@ -69,7 +76,10 @@ const ContactInfo = ({navigation, route}) => {
                 <View style={styles.row}>
                   <Text style={styles.labelBold}>Apellido:</Text><Text style={styles.label}>{contact.lastname}</Text>
                 </View>
-                <View style={styles.btn}><Button onPress={handleDelete} disabled={isLoading} title='Borrar'></Button></View>
+                <View style={{flexDirection:'row', alignSelf: "center"}}>
+                  <View style={styles.btn}><Button onPress={handleEdit} disabled={isLoading} title='Editar'></Button></View>
+                  <View style={styles.btn}><Button onPress={handleDelete} disabled={isLoading} title='Borrar'></Button></View>
+                </View>
             </View>;
   }
   else{
