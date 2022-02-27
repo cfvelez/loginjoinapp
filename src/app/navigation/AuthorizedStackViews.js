@@ -20,15 +20,24 @@ export const ContactStackViews = () =>{
           <ContactStack.Screen name={contactRoute.list} component={ContactList} options={{ title: 'Contactos'}}/>
           <ContactStack.Screen name={contactRoute.info} component={ContactInfo} options={{ title: 'Información'}} />
           <ContactStack.Screen name={contactRoute.edit} component={ContactEdit} options={{ title: 'Editar'}} />
-          <ContactStack.Screen name={storyRoute.list} component={StoryStackViews} options={{ title: 'Historial'}} />
           <ContactStack.Screen name={contactRoute.add} component={ContactAdd} options={{ title: 'Nuevo'}} />
         </ContactStack.Navigator>);
 }
 
-export const StoryStackViews = () =>{
+export const StoryStackViews = (contactId) =>{
+  console.log('contactId:',contactId);
   return(
-        <StoryStack.Navigator initialRouteName={storyRoute.list} screenOptions={{ headerShown: false }}>
-          <StoryStack.Screen name={storyRoute.list} component={StoryList} options={{ title: 'Historial'}} />
+        <StoryStack.Navigator
+              initialRouteName={storyRoute.list}
+              screenOptions={{ headerShown: true }}
+              >
+          <StoryStack.Screen
+            name={storyRoute.list}
+            component={StoryList}
+            options={{ title: 'Historial'}}
+            screenOptions={{ headerShown: true }}
+            initialParams={contactId}
+            />
         </StoryStack.Navigator>
         );
 }

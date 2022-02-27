@@ -3,10 +3,13 @@ import { Text, View, StyleSheet,SafeAreaView,TextInput,Button,Alert } from "reac
 import LoginStyle from './LoginStyle.js';
 import {authUser} from '../../app/remotes/Auth';
 import {useMutation} from 'react-query';
+import { useDispatch } from "react-redux";
+import {set_contact_stack} from '../../app/redux/actions/stackview';
 
 const styles = StyleSheet.create(LoginStyle);
 
 const Login = ({ navigation }) =>  {
+  const dispatch = useDispatch();
   const {mutate,isLoading} = useMutation(
     authUser,
     {
@@ -17,24 +20,20 @@ const Login = ({ navigation }) =>  {
   const [username, setUsername] = useState('cfvelez9@gmail.com');
   const [password, setPassword] = useState('123456');
 
-
   const completeLogin = (data) => {
-
     if(data == false){
       Alert.alert(
         "Login incorrecto",
         "Usuario o clave incorrectos",
       );
     }
-
+    else
+      dispatch(set_contact_stack({}));
   }
 
   const handleSubmit = async() => {
     await mutate({username,password})
   }
-
-  //const const {isSuccess, isLoading} = useLogin();
-  //dispatch(update_user(userInfo))
 
   return( <SafeAreaView>
             <View style={styles.form}>

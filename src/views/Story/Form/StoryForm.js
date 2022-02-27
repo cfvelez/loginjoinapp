@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Text, View,StyleSheet} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-const StoryForm = ({navigation, isEditing, contact}) => {
+const StoryForm = ({navigation, isEditing, story}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 

@@ -10,6 +10,7 @@ import { QueryClient } from 'react-query'
 import { useMutation } from 'react-query';
 import { useDispatch } from "react-redux";
 import {contact_list_update} from '../../../app/redux/actions/list';
+import {set_history_stack} from '../../../app/redux/actions/stackview/'
 
 
 const styles = StyleSheet.create(ContactInfoStyle);
@@ -34,10 +35,7 @@ const ContactInfo = ({navigation, route}) => {
         headerRight: () => (
           <Button
             onPress={() =>
-              navigation.navigate(storyRoute.list, {
-                screen: storyRoute.list,
-                params:{contactId: contact.id},
-              })
+              dispatch(set_history_stack({contactId: contact.id}))
             }
             title="Historial"
           />
