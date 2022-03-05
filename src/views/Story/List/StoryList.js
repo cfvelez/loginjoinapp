@@ -4,12 +4,14 @@ import { TextInput } from 'react-native-gesture-handler';
 import StoryItem from './Item/StoryItem';
 import StoryFormStyle  from './../Form/StoryFormStyle';
 import useStoryList from '../../../app/hooks/story/useStoryList';
-import {storyRoute} from '../../../app/routes/index'
+import {storyRoute,contactRoute} from '../../../app/routes/index';
 
-const StoryList = ({navigation, route}) => {
-  const {contactId} = route?.params?.contactId;
+import {connect} from 'react-redux';
+
+const StoryList = ({navigation, route, lastUpdate}) => {
+  const contactId = route?.params?.contactId;
   const [text, setText] = useState('');
-  const {data:stories, isLoading } = useStoryList(contactId);
+  const {data:stories, isLoading } = useStoryList(contactId,lastUpdate);
   let screen = null;
 
   const styles = StyleSheet.create(StoryFormStyle);
@@ -21,7 +23,7 @@ const StoryList = ({navigation, route}) => {
         {
           headerRight: () => (
            <Button
-              onPress={() => navigation.navigate(storyRoute.add)}
+              onPress={() => navigation.navigate(storyRoute.add, {contactId})}
               title="Nuevo"
           />),
            title: 'Historias',
@@ -29,7 +31,7 @@ const StoryList = ({navigation, route}) => {
         {
           headerLeft: () => (
             <Button
-               onPress={() => navigation.navigate(storyRoute.add)}
+               onPress={() => navigation.navigate(contactRoute.list)}
                title="contacto"
            />),
             title: 'Contactos',
@@ -65,4 +67,8 @@ const StoryList = ({navigation, route}) => {
     );
 }
 
-export default StoryList;
+const mapStateToProps = state => ({
+  lastUpdate: state.storyListUpdate
+});
+
+export default connect(mapStateToProps)(StoryList);

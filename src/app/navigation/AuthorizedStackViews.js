@@ -7,6 +7,7 @@ import StoryList from '../../views/Story/List/StoryList';
 import {contactRoute, storyRoute} from '../routes/index';
 import ContactAdd from '../../views/Contact/Form/ContactAdd';
 import ContactEdit from '../../views/Contact/Form/ContactEdit';
+import StoryAdd from '../../views/Story/Form/StoryAdd';
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
@@ -24,8 +25,7 @@ export const ContactStackViews = () =>{
         </ContactStack.Navigator>);
 }
 
-export const StoryStackViews = (contactId) =>{
-  console.log('contactId:',contactId);
+export const StoryStackViews = ({contactId}) =>{
   return(
         <StoryStack.Navigator
               initialRouteName={storyRoute.list}
@@ -35,8 +35,12 @@ export const StoryStackViews = (contactId) =>{
             name={storyRoute.list}
             component={StoryList}
             options={{ title: 'Historial'}}
-            screenOptions={{ headerShown: true }}
-            initialParams={contactId}
+            initialParams={{contactId:contactId}}
+            />
+            <StoryStack.Screen
+            name={storyRoute.add}
+            component={StoryAdd}
+            options={{ title: 'Nuevo'}}
             />
         </StoryStack.Navigator>
         );

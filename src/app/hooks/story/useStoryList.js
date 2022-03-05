@@ -1,9 +1,9 @@
 import {useQuery} from 'react-query';
 import {GET_ALL_STORIES}  from '../../remotes/api';
-import {all} from '../../remotes/Story'
+import {getByContact} from '../../remotes/Story'
 
-const useStoryList = (lastUpdate) => {
-  return useQuery([GET_ALL_STORIES,lastUpdate], all);
+const useStoryList = (contactId,lastUpdate) => {
+  return useQuery([GET_ALL_STORIES,contactId,lastUpdate], () => getByContact(contactId));
 }
 
 export default useStoryList;

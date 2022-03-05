@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Text, View,StyleSheet} from 'react-native';
+import {Button, Text, View,StyleSheet, Alert} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import ContactFormStyle from './ContactFormStyle';
 import {create,update} from '../../../app/remotes/Contact';
@@ -38,7 +38,7 @@ const ContactForm = ({navigation, isEditing, contact}) => {
       await mutate(contact,{onSuccess:navigation.navigate(contactRoute.list)})
     }
     else
-      alert('Complete los datos del formulario')
+    Alert.alert('Error al crear contacto', 'Complete los datos del formulario');
   }
 
   return (

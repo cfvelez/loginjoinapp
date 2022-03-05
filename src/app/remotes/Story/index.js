@@ -2,7 +2,7 @@ import httpClient from '../httpClient';
 
 export const create = async(story) =>{
   var http = new httpClient();
-  var data = { contactId: story.contactId,tittle:story.title, description: story.description};
+  var data = { id: story.id, contactId: story.contactId, title: story.title, description: story.description};
   http.setToken();
   return http.axios.post('/story',data)
     .then(() => {
@@ -19,12 +19,12 @@ export const all = async() =>{
   return http.axios.get('/story')
       .then((response) => response.data).catch((e) =>{ console.log(e); return []; });
   }
-/*
-export const update = (contact)=> {
+
+export const update = (story)=> {
   var http = new httpClient();
-  var info = { name: contact.name,lastname: contact.lastName};
+  var info = { contactId: story.contactId, title: story.title,description: story.description};
   http.setToken();
-  return http.axios.post(`/contact/${contact.id}`,info)
+  return http.axios.post(`/story/${story.id}`,info)
     .then(() => {
       return true
     })
@@ -33,10 +33,10 @@ export const update = (contact)=> {
     } );
 }
 
-export const get = (contactId)=> {
+export const get = (storyId)=> {
   var http = new httpClient();
   http.setToken();
-  return http.axios.get(`/contact/${contactId}`)
+  return http.axios.get(`/story/${storyId}`)
     .then((response) => {
       return response.data
     })
@@ -45,16 +45,28 @@ export const get = (contactId)=> {
     } );
 }
 
-export const remove = (contact)=> {
+export const getByContact = (contactId)=> {
   var http = new httpClient();
   http.setToken();
-  return http.axios.delete(`/contact/${contact.id}`)
+  return http.axios.get(`/story/contact/${contactId}`)
+    .then((response) => {
+      return response.data
+    })
+    .catch((e) =>{
+      return false;
+    } );
+}
+
+export const remove = (storyId)=> {
+  var http = new httpClient();
+  http.setToken();
+  return http.axios.delete(`/story/${storyId}`)
   .then(() => true)
   .catch((e) =>{
     return false;
   } );
 }
-
+/*
 export const search = (term) =>{
   var http = new httpClient();
   http.setToken();
@@ -65,3 +77,4 @@ export const search = (term) =>{
   } );
 }
 */
+
