@@ -63,6 +63,7 @@ export const remove = (storyId)=> {
   return http.axios.delete(`/story/${storyId}`)
   .then(() => true)
   .catch((e) =>{
+    console.log(e);
     return false;
   } );
 }

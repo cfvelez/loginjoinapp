@@ -15,7 +15,7 @@ const StoryList = ({navigation, route, lastUpdate}) => {
   let screen = null;
 
   const styles = StyleSheet.create(StoryFormStyle);
-  const handleOnPress = (storyId) => { alert(storyId) }
+  const handleOnPress = (storyId) => navigation.navigate(storyRoute.info, {storyId, contactId});
 
   useLayoutEffect(function() {
     if (!isLoading) {

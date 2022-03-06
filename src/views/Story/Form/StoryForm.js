@@ -12,8 +12,9 @@ import { GET_ALL_STORIES } from '../../../app/remotes/api';
 import { story_list_update } from '../../../app/redux/actions/list/index';
 
 const StoryForm = ({navigation, isEditing, story, contactId} ) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState(story?.title ?? '');
+  const [description, setDescription] = useState(story?.description ?? '');
+  const storyId = story?.id ?? null;
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
   const styles = StyleSheet.create(StoryFormStyle);
@@ -27,7 +28,7 @@ const StoryForm = ({navigation, isEditing, story, contactId} ) => {
   let {mutate,isLoading} = useMutation(operation, {onSuccess:invalidateCacheQuery});
 
   const handleSubmit = async () =>{
-    const storyModel = new Story(-1,contactId,title, description);
+    const storyModel = new Story(storyId,contactId,title, description);
     if(storyModel.validate()){
       await mutate(storyModel,{onSuccess:navigation.navigate(storyRoute.list)})
     }
