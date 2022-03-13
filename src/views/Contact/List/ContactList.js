@@ -14,7 +14,6 @@ const ContactList = ({navigation,lastUpdate}) => {
   const {data:contacts, isLoading } = useContactList(lastUpdate);
   const {data:contactsFilter, isLoadingFilter } = useContactSearch(text);
   let screen = null;
-
   const handleOnPress = (contactId) => {navigation.navigate(contactRoute.info, {contactId}); }
 
   useLayoutEffect(function() {

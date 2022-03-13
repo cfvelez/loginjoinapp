@@ -56,11 +56,18 @@ export const remove = (contact)=> {
 }
 
 export const search = (term) =>{
-  var http = new httpClient();
-  http.setToken();
-  return http.axios.get(`/contact/search/${term}`)
-  .then((response) => response.data)
-  .catch((e) =>{
-          return [];
-  } );
+  if(term.length > 0){
+
+    var http = new httpClient();
+    var info = { term : term.replace(/ /g, "")};
+    http.setToken();
+    return http.axios.post(`/contact/search`,info)
+    .then((response) =>{ return response.data })
+    .catch((e) =>{
+            return [];
+    } );
+  }
+  else
+    return [];
+
 }
