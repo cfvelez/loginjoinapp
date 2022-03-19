@@ -4,7 +4,6 @@ import LoginStackViews from "./LoginStackViews";
 import useAuth from "../hooks/useAuth";
 import useStackView from "../hooks/useStackView";
 import {STACK_LOGIN,STACK_CONTACT, STACK_HISTORY} from "../redux/types/stackview";
-import { parseMutationArgs } from "react-query/types/core/utils";
 
 const GetViewStack = () =>{
   const isAuthorized = useAuth();

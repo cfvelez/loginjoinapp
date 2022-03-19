@@ -7,11 +7,13 @@ import useStoryList from '../../../app/hooks/story/useStoryList';
 import {storyRoute,contactRoute} from '../../../app/routes/index';
 
 import {connect} from 'react-redux';
+import useStorySearch from '../../../app/hooks/story/useStorySearch';
 
 const StoryList = ({navigation, route, lastUpdate}) => {
   const contactId = route?.params?.contactId;
   const [text, setText] = useState('');
   const {data:stories, isLoading } = useStoryList(contactId,lastUpdate);
+  const {data:storiesFilter, isLoadingFilter } = useStorySearch(contactId,text);
   let screen = null;
 
   const styles = StyleSheet.create(StoryFormStyle);
@@ -28,21 +30,12 @@ const StoryList = ({navigation, route, lastUpdate}) => {
           />),
            title: 'Historias',
         },
-        {
-          headerLeft: () => (
-            <Button
-               onPress={() => navigation.navigate(contactRoute.list)}
-               title="contacto"
-           />),
-            title: 'Contactos',
-        }
       );
     }
   });
 
-  if(!isLoading){
-    let list = stories;
-    //let list = storiesFilter && storiesFilter.length > 0 ? storiesFilter : stories;
+  if(!isLoading && !isLoadingFilter){
+    let list = storiesFilter && storiesFilter.length > 0 ? storiesFilter : (text.length === 0) ? stories : [];
     screen = <FlatList
                 data={list}
                 renderItem={({item})=> <StoryItem story={item} onPress={()=>handleOnPress(item.id)}/>}

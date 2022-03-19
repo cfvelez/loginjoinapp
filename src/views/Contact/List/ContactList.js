@@ -34,7 +34,7 @@ const ContactList = ({navigation,lastUpdate}) => {
   const styles = StyleSheet.create(ContactFormStyle);
 
   if(!isLoading || !isLoadingFilter){
-    let list = contactsFilter && contactsFilter.length > 0 ? contactsFilter : contacts;
+    let list = contactsFilter && contactsFilter.length > 0 ? contactsFilter : (text.length === 0) ? contacts : [];
     screen = <FlatList
                 data={list}
                 renderItem={({item})=> <ContactItem contact={item} onPress={()=>handleOnPress(item.id)}/>}

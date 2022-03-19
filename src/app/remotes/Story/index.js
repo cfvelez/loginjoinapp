@@ -67,15 +67,21 @@ export const remove = (storyId)=> {
     return false;
   } );
 }
-/*
-export const search = (term) =>{
-  var http = new httpClient();
-  http.setToken();
-  return http.axios.get(`/contact/search/${term}`)
-  .then((response) => response.data)
-  .catch((e) =>{
+
+export const search = (contactId,term) =>{
+  if(contactId && term.length > 0 ){
+    var info = { term : term.replace(/ /g, "")};
+    var http = new httpClient();
+    http.setToken();
+    return http.axios.post(`/story/search/${contactId}`, info)
+    .then((response) => response.data).catch((e) =>{
           return [];
-  } );
+    });
+  }
+  else{
+    return [];
+  }
+
 }
-*/
+
 

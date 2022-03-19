@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ContactList from '../../views/Contact/List/ContactList';
@@ -10,6 +11,9 @@ import ContactEdit from '../../views/Contact/Form/ContactEdit';
 import StoryAdd from '../../views/Story/Form/StoryAdd';
 import StoryInfo from '../../views/Story/Info/StoryInfo';
 import StoryEdit from '../../views/Story/Form/StoryEdit';
+
+import { useDispatch } from "react-redux";
+import { set_contact_stack } from '../redux/actions/stackview';
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
@@ -28,6 +32,7 @@ export const ContactStackViews = () =>{
 }
 
 export const StoryStackViews = ({contactId}) =>{
+  const dispatch = useDispatch();
   return(
         <StoryStack.Navigator
               initialRouteName={storyRoute.list}
@@ -36,7 +41,17 @@ export const StoryStackViews = ({contactId}) =>{
           <StoryStack.Screen
             name={storyRoute.list}
             component={StoryList}
-            options={{ title: 'Historial'}}
+            options={ () => (
+              { title: 'Historial',
+
+                headerLeft: () => (
+                  <Button
+                    title="Contactos"
+                    onPress={() => { dispatch(set_contact_stack({contactId})) } } />
+                )
+
+              })
+            }
             initialParams={{contactId:contactId}}
             />
             <StoryStack.Screen name={storyRoute.add} component={StoryAdd} options={{ title: 'Nuevo'}} />
