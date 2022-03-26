@@ -5,12 +5,12 @@ import {GET_ALL_CONTACTS} from '../../../app/remotes/api';
 import ContactInfoStyle from './ContactInfoStyle';
 import MyConfirmDialog from '../../../components/MyConfirmDialog/MyConfirmDialog.js';
 import { remove } from '../../../app/remotes/Contact';
-import { contactRoute, storyRoute } from '../../../app/routes';
+import { contactRoute } from '../../../app/routes';
 import { QueryClient } from 'react-query'
 import { useMutation } from 'react-query';
 import { useDispatch } from "react-redux";
 import {contact_list_update} from '../../../app/redux/actions/list';
-import {set_history_stack} from '../../../app/redux/actions/stackview/'
+import {set_story_stack} from '../../../app/redux/actions/stackview/'
 
 
 const styles = StyleSheet.create(ContactInfoStyle);
@@ -35,7 +35,7 @@ const ContactInfo = ({navigation, route}) => {
         headerRight: () => (
           <Button
             onPress={() =>
-              dispatch(set_history_stack({contactId: contact.id}))
+              dispatch(set_story_stack({contactId: contact.id}))
             }
             title="Historial"
           />

@@ -1,9 +1,9 @@
 import React from "react";
-import {StoryStackViews,ContactStackViews} from "./AuthorizedStackViews";
+import {StoryStackViews,ContactStackViews, StoryPointStackViews} from "./AuthorizedStackViews";
 import LoginStackViews from "./LoginStackViews";
 import useAuth from "../hooks/useAuth";
 import useStackView from "../hooks/useStackView";
-import {STACK_LOGIN,STACK_CONTACT, STACK_HISTORY} from "../redux/types/stackview";
+import {STACK_LOGIN,STACK_CONTACT, STACK_STORY, STACK_STORYPOINT} from "../redux/types/stackview";
 
 const GetViewStack = () =>{
   const isAuthorized = useAuth();
@@ -17,8 +17,10 @@ const GetViewStack = () =>{
     switch (view) {
       case STACK_CONTACT:
         return <ContactStackViews></ContactStackViews>;
-      case STACK_HISTORY:
-        return <StoryStackViews contactId={stackView.params.contactId}></StoryStackViews>
+      case STACK_STORY:
+        return <StoryStackViews contactId={stackView.params?.contactId} storyId={stackView.params?.storyId}></StoryStackViews>
+      case STACK_STORYPOINT:
+        return <StoryPointStackViews contactId={stackView.params?.contactId} storyId={stackView.params?.storyId}></StoryPointStackViews>
       case STACK_LOGIN:
         return <LoginStackViews></LoginStackViews>;
       default:

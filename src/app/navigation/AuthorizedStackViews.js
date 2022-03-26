@@ -1,11 +1,11 @@
 import React from 'react';
 import {Button} from 'react-native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ContactList from '../../views/Contact/List/ContactList';
 import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import StoryList from '../../views/Story/List/StoryList';
-import {contactRoute, storyRoute} from '../routes/index';
+import StoryPointList from '../../views/StoryPoint/List/StoryPointList'
+import {contactRoute, storyRoute, storypointRoute} from '../routes/index';
 import ContactAdd from '../../views/Contact/Form/ContactAdd';
 import ContactEdit from '../../views/Contact/Form/ContactEdit';
 import StoryAdd from '../../views/Story/Form/StoryAdd';
@@ -13,13 +13,11 @@ import StoryInfo from '../../views/Story/Info/StoryInfo';
 import StoryEdit from '../../views/Story/Form/StoryEdit';
 
 import { useDispatch } from "react-redux";
-import { set_contact_stack } from '../redux/actions/stackview';
+import { set_contact_stack , set_story_stack} from '../redux/actions/stackview';
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const Stories = () =>{return(<></>);};
+const StoryPointStack = createNativeStackNavigator();
 
 export const ContactStackViews = () =>{
   return(
@@ -31,11 +29,11 @@ export const ContactStackViews = () =>{
         </ContactStack.Navigator>);
 }
 
-export const StoryStackViews = ({contactId}) =>{
+export const StoryStackViews = ({storyId, contactId}) =>{
   const dispatch = useDispatch();
   return(
         <StoryStack.Navigator
-              initialRouteName={storyRoute.list}
+              initialRouteName={storyId ? storyRoute.info : storyRoute.list}
               screenOptions={{ headerShown: true }}
               >
           <StoryStack.Screen
@@ -43,16 +41,14 @@ export const StoryStackViews = ({contactId}) =>{
             component={StoryList}
             options={ () => (
               { title: 'Historial',
-
                 headerLeft: () => (
                   <Button
                     title="Contactos"
                     onPress={() => { dispatch(set_contact_stack({contactId})) } } />
                 )
-
               })
             }
-            initialParams={{contactId:contactId}}
+            initialParams={{contactId:contactId, storyId:storyId}}
             />
             <StoryStack.Screen name={storyRoute.add} component={StoryAdd} options={{ title: 'Nuevo'}} />
             <StoryStack.Screen name={storyRoute.info} component={StoryInfo} options={{ title: 'Historia'}}/>
@@ -61,12 +57,31 @@ export const StoryStackViews = ({contactId}) =>{
         );
 }
 
-export const AuthorizedStackViews = () =>{
-  return(
-      <Tab.Navigator initialRouteName="ContactHistory">
-        <Tab.Screen name={contactRoute.info} component={ContactInfo} options={{ title: 'Historial'}} />
-        <Tab.Screen name="ContactStories" component={Stories} options={{ title: 'Historias'}} />
-      </Tab.Navigator>);
-};
+export const StoryPointStackViews = ({storyId, contactId}) =>{
+  const dispatch = useDispatch();
+  return (
+          <StoryPointStack.Navigator
+              initialRouteName={storypointRoute.list}
+              component={StoryPointList}
+            >
+            <StoryPointStack.Screen
+              name={storypointRoute.list}
+              component={StoryPointList}
+              options={ () => (
+                { title: 'Historial',
+                  headerLeft: () => (
+                    <Button
+                      title="Historias"
+                      onPress={() => { dispatch(set_story_stack({storyId, contactId})) } } />
+                  )
+                })
+              }
+              initialParams={{storyId, contactId}}
+            />
+
+          </StoryPointStack.Navigator>
+  )
+
+}
 
 

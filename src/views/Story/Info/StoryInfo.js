@@ -10,7 +10,7 @@ import { QueryClient } from 'react-query'
 import { useMutation } from 'react-query';
 import { useDispatch } from "react-redux";
 import {story_list_update} from '../../../app/redux/actions/list';
-import {set_history_stack} from '../../../app/redux/actions/stackview'
+import {set_storypoint_stack} from '../../../app/redux/actions/stackview'
 
 
 const styles = StyleSheet.create(StoryInfoStyle);
@@ -35,7 +35,7 @@ const StoryInfo = ({navigation, route}) => {
         headerRight: () => (
           <Button
             onPress={() =>
-              alert(storyId)
+              dispatch(set_storypoint_stack({storyId: storyId, contactId:contactId }))
             }
             title="Eventos"
           />
