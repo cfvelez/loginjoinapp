@@ -30,7 +30,7 @@ const StoryForm = ({navigation, isEditing, story, contactId} ) => {
   const handleSubmit = async () =>{
     const storyModel = new Story(storyId,contactId,title, description);
     if(storyModel.validate()){
-      await mutate(storyModel,{onSuccess:navigation.navigate(storyRoute.list)})
+      await mutate(storyModel,{onSuccess:navigation.navigate(storyRoute.list,{contactId,prevStoryId:false})})
     }
     else{
       Alert.alert('Error al crear la historia', 'Complete los datos del formulario');

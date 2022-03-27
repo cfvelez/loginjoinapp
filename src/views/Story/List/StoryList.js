@@ -1,16 +1,17 @@
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useState,useLayoutEffect, useEffect} from 'react';
 import {View, Text , StyleSheet, FlatList, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import StoryItem from './Item/StoryItem';
 import StoryFormStyle  from './../Form/StoryFormStyle';
 import useStoryList from '../../../app/hooks/story/useStoryList';
-import {storyRoute,contactRoute} from '../../../app/routes/index';
+import {storyRoute} from '../../../app/routes/index';
 
 import {connect} from 'react-redux';
 import useStorySearch from '../../../app/hooks/story/useStorySearch';
 
 const StoryList = ({navigation, route, lastUpdate}) => {
   const contactId = route?.params?.contactId;
+  const prevStoryId = route?.params?.prevStoryId ?? false;
   const [text, setText] = useState('');
   const {data:stories, isLoading } = useStoryList(contactId,lastUpdate);
   const {data:storiesFilter, isLoadingFilter } = useStorySearch(contactId,text);
@@ -31,6 +32,14 @@ const StoryList = ({navigation, route, lastUpdate}) => {
            title: 'Historias',
         },
       );
+    }
+  });
+
+  //handle when we came from a back button
+  useEffect(()=>{
+    if(prevStoryId){
+      navigation.navigate(storyRoute.info, {storyId:prevStoryId, contactId});
+      return () => false
     }
   });
 

@@ -18,7 +18,7 @@ const GetViewStack = () =>{
       case STACK_CONTACT:
         return <ContactStackViews></ContactStackViews>;
       case STACK_STORY:
-        return <StoryStackViews contactId={stackView.params?.contactId} storyId={stackView.params?.storyId}></StoryStackViews>
+        return <StoryStackViews contactId={stackView.params?.contactId} prevStoryId={stackView.params?.prevStoryId}></StoryStackViews>
       case STACK_STORYPOINT:
         return <StoryPointStackViews contactId={stackView.params?.contactId} storyId={stackView.params?.storyId}></StoryPointStackViews>
       case STACK_LOGIN:

@@ -29,11 +29,12 @@ export const ContactStackViews = () =>{
         </ContactStack.Navigator>);
 }
 
-export const StoryStackViews = ({storyId, contactId}) =>{
+export const StoryStackViews = ({prevStoryId, contactId}) =>{
   const dispatch = useDispatch();
+
   return(
         <StoryStack.Navigator
-              initialRouteName={storyId ? storyRoute.info : storyRoute.list}
+              initialRouteName={storyRoute.list}
               screenOptions={{ headerShown: true }}
               >
           <StoryStack.Screen
@@ -48,7 +49,7 @@ export const StoryStackViews = ({storyId, contactId}) =>{
                 )
               })
             }
-            initialParams={{contactId:contactId, storyId:storyId}}
+            initialParams={{contactId:contactId, prevStoryId:prevStoryId}}
             />
             <StoryStack.Screen name={storyRoute.add} component={StoryAdd} options={{ title: 'Nuevo'}} />
             <StoryStack.Screen name={storyRoute.info} component={StoryInfo} options={{ title: 'Historia'}}/>
@@ -72,13 +73,12 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
                   headerLeft: () => (
                     <Button
                       title="Historias"
-                      onPress={() => { dispatch(set_story_stack({storyId, contactId})) } } />
+                      onPress={() => {dispatch(set_story_stack({prevStoryId:storyId, contactId})) } } />
                   )
                 })
               }
               initialParams={{storyId, contactId}}
             />
-
           </StoryPointStack.Navigator>
   )
 
