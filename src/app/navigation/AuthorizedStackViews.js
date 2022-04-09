@@ -14,6 +14,7 @@ import StoryEdit from '../../views/Story/Form/StoryEdit';
 
 import { useDispatch } from "react-redux";
 import { set_contact_stack , set_story_stack} from '../redux/actions/stackview';
+import StoryPointInfo from '../../views/StoryPoint/Info/StoryPointInfo';
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
@@ -79,6 +80,7 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
               }
               initialParams={{storyId, contactId}}
             />
+            <StoryStack.Screen name={storypointRoute.info} component={StoryPointInfo} options={{ title: 'Evento'}}/>
           </StoryPointStack.Navigator>
   )
 
