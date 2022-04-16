@@ -1,3 +1,9 @@
+
+const itemPosition = {
+  'marginTop':12,
+  'marginLeft':12,
+  'marginRight':12
+}
 const StoryPointFormStyle = {
   form : {
     paddingHorizontal: 16
@@ -8,11 +14,14 @@ const StoryPointFormStyle = {
     borderWidth: 1,
     padding: 10,
   },
+  itemPosition: itemPosition,
   label:{
+    ...itemPosition,
     fontWeight: "bold",
-    marginTop:12,
-    marginLeft:12,
-    marginRight:12
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent:'space-between'
   }
 };
 

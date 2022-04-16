@@ -4,17 +4,16 @@ import { TextInput } from 'react-native-gesture-handler';
 import StoryPointItem from './Item/StoryPointItem';
 import StoryPointFormStyle  from './../Form/StoryPointFormStyle';
 import useStoryPointList from '../../../app/hooks/storypoint/useStoryPointList';
-import {storypointRoute,storyRoute} from '../../../app/routes/index';
+import {storypointRoute} from '../../../app/routes/index';
 
 import {connect} from 'react-redux';
-//import useStorySearch from '../../../app/hooks/story/useStorySearch';
+import useStoryPointSearch from '../../../app/hooks/storypoint/useStoryPointSearch';
 
 const StoryPointList = ({navigation, route, lastUpdate}) => {
   const storyId = route?.params?.storyId;
   const [text, setText] = useState('');
   const {data:storypoints, isLoading } = useStoryPointList(storyId,lastUpdate);
-  //const {data:storypointsFilter, isLoadingFilter } = useStoryPointsSearch(storyId,text);
-  let isLoadingFilter = false;
+  const {data:storypointsFilter, isLoadingFilter } = useStoryPointSearch(storyId,text);
   let screen = null;
 
   const styles = StyleSheet.create(StoryPointFormStyle);
@@ -36,8 +35,7 @@ const StoryPointList = ({navigation, route, lastUpdate}) => {
   });
 
   if(!isLoading && !isLoadingFilter){
-    //let list = storypointsFilter && storypointsFilter.length > 0 ? storypointsFilter : (text.length === 0) ? storiespoint : [];
-    let list = storypoints;
+    let list = storypointsFilter && storypointsFilter.length > 0 ? storypointsFilter : (text.length === 0) ? storypoints : [];
     screen = <FlatList
                 data={list}
                 renderItem={({item})=> <StoryPointItem storypoint={item} onPress={()=>handleOnPress(item.id)}/>}

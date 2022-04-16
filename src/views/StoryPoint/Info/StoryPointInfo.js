@@ -16,7 +16,7 @@ import useStoryPoint from '../../../app/hooks/storypoint/useStoryPoint';
 const styles = StyleSheet.create(StoryPointInfoStyle);
 
 const StoryPointInfo = ({navigation, route}) => {
-  const {storypointId} = route.params;
+  const {storypointId,storyId} = route.params;
   const {data: storypoint ,isLoading, isSuccess} =  useStoryPoint(storypointId);
   let content = null;
   const dispatch = useDispatch();
@@ -50,6 +50,7 @@ const StoryPointInfo = ({navigation, route}) => {
 
   const handleEdit = () => {
       navigation.navigate(storypointRoute.edit, {
+        storyId : storyId,
         storypointId: storypoint.id
     })
   }

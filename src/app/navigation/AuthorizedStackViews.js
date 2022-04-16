@@ -1,20 +1,28 @@
 import React from 'react';
 import {Button} from 'react-native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import ContactList from '../../views/Contact/List/ContactList';
-import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import StoryList from '../../views/Story/List/StoryList';
 import StoryPointList from '../../views/StoryPoint/List/StoryPointList'
+
 import {contactRoute, storyRoute, storypointRoute} from '../routes/index';
+
+import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import ContactAdd from '../../views/Contact/Form/ContactAdd';
 import ContactEdit from '../../views/Contact/Form/ContactEdit';
+
 import StoryAdd from '../../views/Story/Form/StoryAdd';
 import StoryInfo from '../../views/Story/Info/StoryInfo';
 import StoryEdit from '../../views/Story/Form/StoryEdit';
 
+import StoryPointInfo from '../../views/StoryPoint/Info/StoryPointInfo';
+import StoryPointEdit from '../../views/StoryPoint/Form/StoryPointEdit';
+import StoryPointAdd from '../../views/StoryPoint/Form/StoryPointAdd';
+
 import { useDispatch } from "react-redux";
 import { set_contact_stack , set_story_stack} from '../redux/actions/stackview';
-import StoryPointInfo from '../../views/StoryPoint/Info/StoryPointInfo';
+
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
@@ -80,7 +88,9 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
               }
               initialParams={{storyId, contactId}}
             />
-            <StoryStack.Screen name={storypointRoute.info} component={StoryPointInfo} options={{ title: 'Evento'}}/>
+            <StoryPointStack.Screen name={storypointRoute.info} component={StoryPointInfo} options={{ title: 'Evento'}}/>
+            <StoryPointStack.Screen name={storypointRoute.edit} component={StoryPointEdit} options={{ title: 'Editar'}}/>
+            <StoryPointStack.Screen name={storypointRoute.add} component={StoryPointAdd} options={{ title: 'Nuevo'}}/>
           </StoryPointStack.Navigator>
   )
 

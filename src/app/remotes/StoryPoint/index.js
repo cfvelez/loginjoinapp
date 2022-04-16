@@ -69,11 +69,11 @@ export const remove = (storypointId)=> {
 }
 
 export const search = (storyId,term) =>{
-  if(contactId && term.length > 0 ){
+  if(storyId && term.length > 0 ){
     var info = { term : term.replace(/ /g, "")};
     var http = new httpClient();
     http.setToken();
-    return http.axios.post(`/storypoint/story/${storyId}`, info)
+    return http.axios.post(`/storypoint/search/${storyId}`, info)
     .then((response) => response.data).catch((e) =>{
           return [];
     });
