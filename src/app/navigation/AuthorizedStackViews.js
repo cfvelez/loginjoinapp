@@ -4,9 +4,10 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import ContactList from '../../views/Contact/List/ContactList';
 import StoryList from '../../views/Story/List/StoryList';
-import StoryPointList from '../../views/StoryPoint/List/StoryPointList'
+import StoryPointList from '../../views/StoryPoint/List/StoryPointList';
+import ResourceList from '../../views/Resource/List/ResourceList';
 
-import {contactRoute, storyRoute, storypointRoute} from '../routes/index';
+import {contactRoute, storyRoute, storypointRoute, resourceRoute} from '../routes/index';
 
 import ContactInfo from '../../views/Contact/Info/ContactInfo';
 import ContactAdd from '../../views/Contact/Form/ContactAdd';
@@ -21,12 +22,13 @@ import StoryPointEdit from '../../views/StoryPoint/Form/StoryPointEdit';
 import StoryPointAdd from '../../views/StoryPoint/Form/StoryPointAdd';
 
 import { useDispatch } from "react-redux";
-import { set_contact_stack , set_story_stack} from '../redux/actions/stackview';
+import { set_contact_stack , set_story_stack, set_storypoint_stack} from '../redux/actions/stackview';
 
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
 const StoryPointStack = createNativeStackNavigator();
+const ResourceStack = createNativeStackNavigator();
 
 export const ContactStackViews = () =>{
   return(
@@ -93,6 +95,33 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
             <StoryPointStack.Screen name={storypointRoute.add} component={StoryPointAdd} options={{ title: 'Nuevo'}}/>
           </StoryPointStack.Navigator>
   )
+
+}
+
+export const ResourceStackViews = ({storyId, storypointId, contactId}) => {
+  const dispatch = useDispatch();
+
+  return (
+          <ResourceStack.Navigator
+          initialRouteName={resourceRoute.list}
+          component={ResourceList}
+          >
+             <ResourceStack.Screen
+              name={resourceRoute.list}
+              component={ResourceList}
+              options={ () => (
+                { title: 'Recursos',
+                  headerLeft: () => (
+                    <Button
+                      title="Eventos"
+                      onPress={() => {dispatch(set_storypoint_stack({storyId, contactId, storypointId})) } } />
+                  )
+                })
+              }
+              initialParams={{storyId, storypointId, contactId}}
+            />
+          </ResourceStack.Navigator>
+  );
 
 }
 

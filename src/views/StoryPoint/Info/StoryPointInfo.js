@@ -9,14 +9,14 @@ import { QueryClient } from 'react-query'
 import { useMutation } from 'react-query';
 import { useDispatch } from "react-redux";
 import {storypoint_list_update} from '../../../app/redux/actions/list';
-import {set_storypoint_stack} from '../../../app/redux/actions/stackview'
+import {set_resources_stack} from '../../../app/redux/actions/stackview'
 import useStoryPoint from '../../../app/hooks/storypoint/useStoryPoint';
 
 
 const styles = StyleSheet.create(StoryPointInfoStyle);
 
 const StoryPointInfo = ({navigation, route}) => {
-  const {storypointId,storyId} = route.params;
+  const {storypointId,storyId,contactId} = route.params;
   const {data: storypoint ,isLoading, isSuccess} =  useStoryPoint(storypointId);
   let content = null;
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const StoryPointInfo = ({navigation, route}) => {
       navigation.setOptions({
         headerRight: () => (
           <Button
-            onPress={() => {} //dispatch(set_storypoint_stack({storyId: storyId, storypointId:storypointId }))
+            onPress={() => dispatch(set_resources_stack({contactId, storyId,storypointId }))
             }
             title="Recursos"
           />
@@ -84,7 +84,7 @@ const StoryPointInfo = ({navigation, route}) => {
             </View>;
   }
   else{
-    content = <Text>Cargando..</Text>;
+    content = <Text>Cargando...</Text>;
   }
 
   return (

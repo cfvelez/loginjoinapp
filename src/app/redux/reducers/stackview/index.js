@@ -1,4 +1,4 @@
-import {STACK_LOGIN, STACK_CONTACT, STACK_STORY, STACK_STORYPOINT} from '../../types/stackview'
+import {STACK_LOGIN, STACK_CONTACT, STACK_STORY, STACK_STORYPOINT, STACK_RESOURCES} from '../../types/stackview'
 
 const init_state = { stack:STACK_LOGIN, params:{} };
 
@@ -10,6 +10,8 @@ export const stackView = (state=init_state,action) => {
       return { view:STACK_STORY, params: action.payload }
     case STACK_STORYPOINT :
         return { view:STACK_STORYPOINT, params: action.payload }
+    case STACK_RESOURCES :
+        return { view:STACK_RESOURCES, params: action.payload }
     default: return state
   }
 }
