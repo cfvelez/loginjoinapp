@@ -19,6 +19,7 @@ const StoryPointInfo = ({navigation, route}) => {
   const {storypointId,storyId,contactId} = route.params;
   const {data: storypoint ,isLoading, isSuccess} =  useStoryPoint(storypointId);
   let content = null;
+
   const dispatch = useDispatch();
   const queryClient = new QueryClient();
 
@@ -34,7 +35,7 @@ const StoryPointInfo = ({navigation, route}) => {
       navigation.setOptions({
         headerRight: () => (
           <Button
-            onPress={() => dispatch(set_resources_stack({contactId, storyId,storypointId }))
+            onPress={() => dispatch(set_resources_stack({contactId, storyId,prevStoryPointId:storypointId }))
             }
             title="Recursos"
           />

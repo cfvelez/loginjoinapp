@@ -1,4 +1,4 @@
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useState,useLayoutEffect,useEffect} from 'react';
 import {View, Text , StyleSheet, FlatList, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import StoryPointItem from './Item/StoryPointItem';
@@ -10,14 +10,15 @@ import {connect} from 'react-redux';
 import useStoryPointSearch from '../../../app/hooks/storypoint/useStoryPointSearch';
 
 const StoryPointList = ({navigation, route, lastUpdate}) => {
-  const storyId = route?.params?.storyId;
+  const {storyId,contactId} = route.params;
+  const prevStoryPointId = route?.params?.prevStoryPointId ?? false;
   const [text, setText] = useState('');
   const {data:storypoints, isLoading } = useStoryPointList(storyId,lastUpdate);
   const {data:storypointsFilter, isLoadingFilter } = useStoryPointSearch(storyId,text);
   let screen = null;
 
   const styles = StyleSheet.create(StoryPointFormStyle);
-  const handleOnPress = (storypointId) => navigation.navigate(storypointRoute.info, {storypointId, storyId});
+  const handleOnPress = (storypointId) => navigation.navigate(storypointRoute.info, {storypointId, storyId, contactId});
 
   useLayoutEffect(function() {
     if (!isLoading) {
@@ -31,6 +32,14 @@ const StoryPointList = ({navigation, route, lastUpdate}) => {
            title: 'Seguimiento',
         },
       );
+    }
+  });
+
+  //handle when we came from a back button
+  useEffect(()=>{
+    if(prevStoryPointId){
+      navigation.navigate(storypointRoute.info, {storypointId: prevStoryPointId,storyId,contactId});
+      return () => false
     }
   });
 

@@ -60,7 +60,7 @@ export const StoryStackViews = ({prevStoryId, contactId}) =>{
                 )
               })
             }
-            initialParams={{contactId:contactId, prevStoryId:prevStoryId}}
+            initialParams={{contactId:contactId, prevStoryId}}
             />
             <StoryStack.Screen name={storyRoute.add} component={StoryAdd} options={{ title: 'Nuevo'}} />
             <StoryStack.Screen name={storyRoute.info} component={StoryInfo} options={{ title: 'Historia'}}/>
@@ -69,7 +69,7 @@ export const StoryStackViews = ({prevStoryId, contactId}) =>{
         );
 }
 
-export const StoryPointStackViews = ({storyId, contactId}) =>{
+export const StoryPointStackViews = ({storyId, contactId, prevStoryPointId}) =>{
   const dispatch = useDispatch();
   return (
           <StoryPointStack.Navigator
@@ -88,7 +88,7 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
                   )
                 })
               }
-              initialParams={{storyId, contactId}}
+              initialParams={{storyId, contactId,prevStoryPointId}}
             />
             <StoryPointStack.Screen name={storypointRoute.info} component={StoryPointInfo} options={{ title: 'Evento'}}/>
             <StoryPointStack.Screen name={storypointRoute.edit} component={StoryPointEdit} options={{ title: 'Editar'}}/>
@@ -98,7 +98,7 @@ export const StoryPointStackViews = ({storyId, contactId}) =>{
 
 }
 
-export const ResourceStackViews = ({storyId, storypointId, contactId}) => {
+export const ResourceStackViews = ({storyId,prevStoryPointId, contactId}) => {
   const dispatch = useDispatch();
 
   return (
@@ -114,11 +114,11 @@ export const ResourceStackViews = ({storyId, storypointId, contactId}) => {
                   headerLeft: () => (
                     <Button
                       title="Eventos"
-                      onPress={() => {dispatch(set_storypoint_stack({storyId, contactId, storypointId})) } } />
+                      onPress={() => {dispatch(set_storypoint_stack({storyId, contactId, prevStoryPointId })) } } />
                   )
                 })
               }
-              initialParams={{storyId, storypointId, contactId}}
+              initialParams={{storyId, prevStoryPointId, contactId}}
             />
           </ResourceStack.Navigator>
   );
