@@ -274,6 +274,10 @@ PODS:
     - React-cxxreact (= 0.65.1)
     - React-jsi (= 0.65.1)
     - React-perflogger (= 0.65.1)
+  - rn-fetch-blob (0.12.0):
+    - React-Core
+  - RNAudioRecorderPlayer (3.4.0):
+    - React-Core
   - RNCMaskedView (0.1.11):
     - React
   - RNGestureHandler (1.10.3):
@@ -342,6 +346,8 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
+  - RNAudioRecorderPlayer (from `../node_modules/react-native-audio-recorder-player`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -412,6 +418,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  rn-fetch-blob:
+    :path: "../node_modules/rn-fetch-blob"
+  RNAudioRecorderPlayer:
+    :path: "../node_modules/react-native-audio-recorder-player"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
@@ -455,6 +465,8 @@ SPEC CHECKSUMS:
   React-RCTVibration: 92d41c2442e5328cc4d342cd7f78e5876b68bae5
   React-runtimeexecutor: 85187f19dd9c47a7c102f9994f9d14e4dc2110de
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
+  RNAudioRecorderPlayer: 4482e03d9336c8d8ba41825af227f74f41ba0a01
   RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: a84b1da3eaa0f2e493efaa6e3083784d0a586f92

@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import ResourceItem from './Item/ResourceItem';
 import ResourceFormStyle  from './../Form/ResourceFormStyle';
 //import useStoryList from '../../../app/hooks/story/useStoryList';
-import {resourceRoute, storypointRoute} from '../../../app/routes/index';
+import {resourceRoute} from '../../../app/routes/index';
 
 import {connect} from 'react-redux';
 //import useStorySearch from '../../../app/hooks/story/useStorySearch';
@@ -27,7 +27,7 @@ const ResourceList = ({navigation, route, lastUpdate}) => {
         {
           headerRight: () => (
            <Button
-              onPress={() => navigation.navigate(resourceRoute.add, {storyPointId:prevStoryPointId})}
+              onPress={() => navigation.navigate(resourceRoute.add, {prevStoryPointId, contactId})}
               title="Nuevo"
           />),
            title: 'Recursos',

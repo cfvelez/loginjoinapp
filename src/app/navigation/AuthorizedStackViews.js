@@ -20,10 +20,10 @@ import StoryEdit from '../../views/Story/Form/StoryEdit';
 import StoryPointInfo from '../../views/StoryPoint/Info/StoryPointInfo';
 import StoryPointEdit from '../../views/StoryPoint/Form/StoryPointEdit';
 import StoryPointAdd from '../../views/StoryPoint/Form/StoryPointAdd';
+import ResourceAdd from '../../views/Resource/Form/ResourceAdd';
 
 import { useDispatch } from "react-redux";
 import { set_contact_stack , set_story_stack, set_storypoint_stack} from '../redux/actions/stackview';
-
 
 const ContactStack = createNativeStackNavigator();
 const StoryStack = createNativeStackNavigator();
@@ -120,6 +120,7 @@ export const ResourceStackViews = ({storyId,prevStoryPointId, contactId}) => {
               }
               initialParams={{storyId, prevStoryPointId, contactId}}
             />
+            <ResourceStack.Screen name={resourceRoute.add} component={ResourceAdd} options={{ title: 'Nuevo'}}/>
           </ResourceStack.Navigator>
   );
 

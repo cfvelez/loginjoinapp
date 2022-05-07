@@ -10,3 +10,6 @@ export const GET_SEARCH_STORY = 'storySearch';
 export const GET_ALL_STORIESPOINT = 'storypointAll';
 export const GET_INFO_STORYPOINT = 'storypointInfo';
 export const GET_SEARCH_STORYPOINT = 'storypointSearch';
+
+export const GET_ALL_RESOURCES = 'resourceAll';
+export const GET_INFO_RESOURCE = 'resourceInfo';
