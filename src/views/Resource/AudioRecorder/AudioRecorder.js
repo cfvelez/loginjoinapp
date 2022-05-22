@@ -50,8 +50,8 @@ const AudioRecorder = ({}) => {
   const [recordSecs, setRecordSecs] = useState('-');
   const [currentPositionSec, setCurrentPositionSec] = useState('-');
   const [currentDurationSec, setCurrentDurationSec] = useState('-');
-  const [playTime, setPlayTime] = useState('-');
-  const [duration, setDuration] = useState('-');
+  const [playTime, setPlayTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const audioRecorderPlayer = new AudioRecorderPlayer();
   audioRecorderPlayer.setSubscriptionDuration(0.1); // optional. Default is 0.5
@@ -118,10 +118,12 @@ const AudioRecorder = ({}) => {
     // );
 
     //? Default path
-    const uri = await audioRecorderPlayer.startRecorder(undefined,audioSet,meteringEnabled);
+    const uri = await audioRecorderPlayer.startRecorder(path,audioSet,meteringEnabled);
+
+    console.log('url for start:', uri);
 
     audioRecorderPlayer.addRecordBackListener((e) => {
-      console.log('record-back', e);
+      //console.log('record-back', e);
       setRecordSecs(e.currentPosition);
       setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
     });
@@ -130,6 +132,7 @@ const AudioRecorder = ({}) => {
 
   const onPauseRecord = async () => {
     try {
+      console.log('onPauseRecord');
       await audioRecorderPlayer.pauseRecorder();
     } catch (err) {
       console.log('pauseRecord', err);
@@ -137,10 +140,13 @@ const AudioRecorder = ({}) => {
   };
 
   const onResumeRecord = async () => {
-    await audioRecorderPlayer.resumeRecorder();
+    console.log('onResumeRecord');
+    let resp = await audioRecorderPlayer.resumeRecorder();
+    console.log('resp:',resp);
   };
 
   const onStopRecord = async () => {
+    console.log('onStopRecord');
     const result = await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
     setRecordSecs(0);
@@ -150,14 +156,15 @@ const AudioRecorder = ({}) => {
   const onStartPlay = async () => {
     console.log('onStartPlay');
     //? Custom path
-    // const msg = await this.audioRecorderPlayer.startPlayer(this.path);
+    //const msg = await this.audioRecorderPlayer.startPlayer(this.path);
 
     //? Default path
-    const msg = await audioRecorderPlayer.startPlayer();
+    const msg = await audioRecorderPlayer.startPlayer(path);
     const volume = await audioRecorderPlayer.setVolume(1.0);
     console.log(`file: ${msg}`, `volume: ${volume}`);
 
     audioRecorderPlayer.addPlayBackListener((e) => {
+      console.log('info:',e);
       setCurrentDurationSec(e.duration);
       setCurrentPositionSec(e.currentPosition);
       setPlayTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
@@ -166,17 +173,22 @@ const AudioRecorder = ({}) => {
   };
 
   const onPausePlay = async () => {
-    await audioRecorderPlayer.pausePlayer();
+    console.log('onPausePlay');
+    let resp = await audioRecorderPlayer.pausePlayer();
+    console.log('resp:',resp);
   };
 
   const onResumePlay = async () => {
+    console.log('onResumePlay');
     await audioRecorderPlayer.resumePlayer();
+    console.log('resp:',resp);
   };
 
   const onStopPlay = async () => {
     console.log('onStopPlay');
-    audioRecorderPlayer.stopPlayer();
+    let resp = audioRecorderPlayer.stopPlayer();
     audioRecorderPlayer.removePlayBackListener();
+    console.log('resp:',resp);
   };
 
   return (
