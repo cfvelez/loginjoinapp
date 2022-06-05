@@ -118,7 +118,7 @@ const AudioRecorder = ({}) => {
     // );
 
     //? Default path
-    const uri = await audioRecorderPlayer.startRecorder(path,audioSet,meteringEnabled);
+    const uri = await audioRecorderPlayer.startRecorder(path.ios,audioSet,meteringEnabled);
 
     console.log('url for start:', uri);
 
@@ -150,6 +150,7 @@ const AudioRecorder = ({}) => {
     const result = await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
     setRecordSecs(0);
+    setRecordTime(0);
     console.log(result);
   };
 
@@ -164,11 +165,11 @@ const AudioRecorder = ({}) => {
     console.log(`file: ${msg}`, `volume: ${volume}`);
 
     audioRecorderPlayer.addPlayBackListener((e) => {
-      console.log('info:',e);
       setCurrentDurationSec(e.duration);
       setCurrentPositionSec(e.currentPosition);
       setPlayTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
       setDuration(audioRecorderPlayer.mmssss(Math.floor(e.duration)));
+      return true;
     });
   };
 
@@ -186,8 +187,11 @@ const AudioRecorder = ({}) => {
 
   const onStopPlay = async () => {
     console.log('onStopPlay');
-    let resp = audioRecorderPlayer.stopPlayer();
-    audioRecorderPlayer.removePlayBackListener();
+    let resp = await audioRecorderPlayer.stopPlayer();
+    let removeresp = audioRecorderPlayer.removePlayBackListener();
+    setRecordSecs(0);
+    setRecordTime(0);
+    console.log('remove resp:',removeresp);
     console.log('resp:',resp);
   };
 
